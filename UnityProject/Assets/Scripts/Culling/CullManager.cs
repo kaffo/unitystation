@@ -20,7 +20,7 @@ public class CullManager : MonoBehaviour
 		}
 	}
 
-	public static HashSet<BasicTile> baseTiles = new HashSet<BasicTile>();
+	public static List<BasicTile> basicTiles = new List<BasicTile>();
 
 	private void OnEnable()
 	{
@@ -40,6 +40,6 @@ public class CullManager : MonoBehaviour
 	void ResetManager()
 	{
 		Debug.Log("Reset");
-		baseTiles.Clear();
+		basicTiles.Clear();
 	}
 }
