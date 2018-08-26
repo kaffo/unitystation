@@ -8,7 +8,16 @@ public abstract class BasicTile : LayerTile
 	public bool IsSealed;
 	public bool Passable;
 
-	public Vector3Int localPos;
+	private Vector3Int localPos;
+	public Vector3Int LocalPos()
+	{
+		return localPos;
+	}
+	public Tilemap tileMap;
+	public ITilemap iTilemap;
+	
+
+	public Vector3 WorldPos { get { return tileMap.CellToWorld(localPos); } }
 
 	public override void RefreshTile(Vector3Int position, ITilemap tilemap)
 	{
@@ -20,14 +29,13 @@ public abstract class BasicTile : LayerTile
 		localPos = position;
 	}
 
-	public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go)
+	public override bool StartUp(Vector3Int position, ITilemap _tilemap, GameObject go)
 	{
+		tileMap = _tilemap.GetComponent<Tilemap>();
+		iTilemap = _tilemap;
 		localPos = position;
-
-		Debug.Log("Add tile at  " + localPos);
-
-		CullManager.basicTiles.Add(this);
-		return base.StartUp(position, tilemap, go);
+		
+		return base.StartUp(position, _tilemap, go);
 	}
 
 	public bool IsPassable()
@@ -45,8 +53,5 @@ public abstract class BasicTile : LayerTile
 		return IsAtmosPassable() && !IsSealed;
 	}
 
-	public void CullTile(bool isOn)
-	{
-		Debug.Log("CULL SETTING ON TILE: " + isOn);
-	}
+	
 }

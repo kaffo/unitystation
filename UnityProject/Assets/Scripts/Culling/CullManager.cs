@@ -20,7 +20,7 @@ public class CullManager : MonoBehaviour
 		}
 	}
 
-	public static List<BasicTile> basicTiles = new List<BasicTile>();
+	public static List<SimpleTile> basicTiles = new List<SimpleTile>();
 
 	private void OnEnable()
 	{
@@ -41,5 +41,31 @@ public class CullManager : MonoBehaviour
 	{
 		Debug.Log("Reset");
 		basicTiles.Clear();
+	}
+
+	public static void CullTile(int index, bool isOn)
+	{
+		//if (!Application.isPlaying)
+		//{
+		//	return;
+		//}
+
+		//if(PlayerManager.LocalPlayer == null)
+		//{
+		//	return;
+		//}
+
+		//Debug.Log("Cull tilE: " + isOn);
+		//if (isOn)
+		//{
+		//	basicTiles[index].tileMap.SetTile(basicTiles[index].LocalPos(),
+		//		basicTiles[index]);
+			
+		//} else
+		//{
+		//	basicTiles[index].tileMap.SetTile(basicTiles[index].LocalPos(), null);
+		//}
+		//basicTiles[index].tileMap.RefreshTile(basicTiles[index].LocalPos());
+		//	basicTiles[index].tileMap.SetTile(basicTiles[index].LocalPos(), null);
 	}
 }

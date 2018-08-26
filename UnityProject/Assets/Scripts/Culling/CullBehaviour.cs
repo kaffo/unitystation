@@ -25,22 +25,20 @@ public class CullBehaviour : MonoBehaviour
 
 		for (int i = 0; i < CullManager.basicTiles.Count; i++)
 		{
-			cullingPoints[i].position = CullManager.basicTiles[i].localPos;
+			cullingPoints[i].position = CullManager.basicTiles[i].WorldPos;
 			cullingPoints[i].radius = 4f;
 		}
 
 		localCullingGroup.onStateChanged = CullingEvent;
 		localCullingGroup.SetBoundingSpheres(cullingPoints);
 		localCullingGroup.SetBoundingDistances(new float[] { 0f, 5f });
-		localCullingGroup.SetDistanceReferencePoint(transform.localPosition);
+		localCullingGroup.SetDistanceReferencePoint(transform.position);
 		localCullingGroup.targetCamera = Camera.main;
-
-		Debug.Log("LENGTH OF CULLS " + CullManager.basicTiles.Count);
 	}
 
 	private void FixedUpdate()
 	{
-		localCullingGroup.SetDistanceReferencePoint(transform.localPosition);
+		localCullingGroup.SetDistanceReferencePoint(transform.position);
 	}
 
 	void CullingEvent(CullingGroupEvent sphere)
@@ -48,13 +46,13 @@ public class CullBehaviour : MonoBehaviour
 		switch (sphere.currentDistance)
 		{
 			case 0:
-				CullManager.basicTiles[sphere.index].CullTile(true);
+				CullManager.CullTile(sphere.index, true);
 				break;
 			case 1:
-				CullManager.basicTiles[sphere.index].CullTile(false);
+				CullManager.CullTile(sphere.index, false);
 				break;
 			case 2:
-				CullManager.basicTiles[sphere.index].CullTile(false);
+				CullManager.CullTile(sphere.index, false);
 				break;
 		}
 	}
